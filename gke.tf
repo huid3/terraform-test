@@ -4,10 +4,6 @@ provider "kubernetes" {
   cluster_ca_certificate = base64decode(module.gke.ca_certificate)
 }
 
-locals {
-  cluster_type = "simple-regional"
-}
-
 module "gke" {
   source  = "terraform-google-modules/kubernetes-engine/google"
   version = "25.0.0"
@@ -25,6 +21,7 @@ module "gke" {
   filestore_csi_driver       = false
   create_service_account     = false
   gce_pd_csi_driver          = false
+  default_max_pods_per_node = 20
 
   node_pools = [
     {

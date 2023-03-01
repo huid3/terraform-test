@@ -9,6 +9,11 @@ terraform {
     }
   }
   required_version = ">= 0.13"
+
+  backend "gcs" {
+    bucket = "pacforce-terraform-state-test"
+    prefix = "terraform/state"
+  }
 }
 
 # google_client_config and kubernetes provider must be explicitly specified like the following.
