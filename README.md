@@ -22,5 +22,12 @@ Setup local variable definitions in a `*.tfvars` file. e.g.
 ```
 project_id = <GCP_PROJECT_ID>
 ```
-# Next Steps
+## Secrets
+GCP Terraform service account private key stored as github secret to use with google cloud auth github action.
+
+## Troubleshooting
+If github actions gets stuck on `terraform plan`, make sure all input variables are defined. `terraform plan` goes into an interactive mode when it cannot find all input variables.
+
+If the remote state file is stuck in a lock state and you are certain no process is currently updating the state file. You can force unlock the state file with: `terraform force-unlock <LOCK-ID>`
+## Next Steps
 - use terragrunt to help keep files DRY when provisioning different environments (DEV, QA, PROD)
