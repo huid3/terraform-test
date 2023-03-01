@@ -7,10 +7,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_TERRAFORM_SERVICE_ACCOUNT_KEY }}
       - uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: ${{ env.TERRAFORM_VERSION }}
-      - name: terraform format check
+      - name: Terraform Format Check
         run: terraform fmt -check
       - name: Terraform Init
         run: terraform init
