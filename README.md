@@ -12,4 +12,8 @@ Terraform state is stored in a GCS bucket. The bucket is setup is done here: htt
 
 Use the [backend-config flag](https://developer.hashicorp.com/terraform/language/settings/backends/configuration#partial-configuration) to pass in the credentials since vairables cannot be used in the backend block to setup connection to GCS bucket.
 
-```terraform init -backend-config="<PATH_TO_SERVICE_ACCOUNT_CREDENTIALS>"```
+```
+terraform init -backend-config="<PATH_TO_SERVICE_ACCOUNT_CREDENTIALS>"
+terraform plan
+terraform apply
+```
