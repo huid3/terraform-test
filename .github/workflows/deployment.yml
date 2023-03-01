@@ -48,9 +48,9 @@ jobs:
             <details>
             <summary>Show Plan</summary>
             
-            \n\`\`\`\n
+            \n\`\`\`
             ${process.env.PLAN}
-            \n\`\`\`\n
+            \`\`\`\n
             
             </details>
             *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
