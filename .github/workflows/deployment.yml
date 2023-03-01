@@ -1,4 +1,6 @@
 name: Deploy Infrastructure
+permissions:
+  pull-requests: "write"
 on: 
   push:
     branches:
