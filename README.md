@@ -1,10 +1,18 @@
 # terraform-test
 
-## Module Docs
+## Documentation references
 
-GKE: https://github.com/terraform-google-modules/terraform-google-kubernetes-engine
+### Terraform modules
 
-VPC/subnets: https://github.com/terraform-google-modules/terraform-google-network
+[GKE](https://github.com/terraform-google-modules/terraform-google-kubernetes-engine) 
+
+[VPC/subnets](https://github.com/terraform-google-modules/terraform-google-network)
+
+### Github actions
+
+[Terraform github action reference ](https://github.com/hashicorp/learn-terraform-github-actions/blob/main/.github/workflows/terraform.yml)
+
+[setup-terraform action](https://github.com/hashicorp/setup-terraform)
 
 ## Terraform State File Configuration
 
@@ -29,5 +37,8 @@ GCP Terraform service account private key stored as github secret to use with go
 If github actions gets stuck on `terraform plan`, make sure all input variables are defined. `terraform plan` goes into an interactive mode when it cannot find all input variables.
 
 If the remote state file is stuck in a lock state and you are certain no process is currently updating the state file. You can force unlock the state file with: `terraform force-unlock <LOCK-ID>`
+
+If running into issues with the comment attached on PR - There's a limit to the number of characters inside a GitHub comment (65535).
+
 ## Next Steps
 - use terragrunt to help keep files DRY when provisioning different environments (DEV, QA, PROD)
