@@ -21,7 +21,7 @@ module "gke" {
   filestore_csi_driver       = false
   create_service_account     = false
   gce_pd_csi_driver          = false
-  default_max_pods_per_node = 20
+  default_max_pods_per_node  = 20
 
   node_pools = [
     {
