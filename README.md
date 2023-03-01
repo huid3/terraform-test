@@ -17,3 +17,10 @@ terraform init -backend-config="<PATH_TO_SERVICE_ACCOUNT_CREDENTIALS>"
 terraform plan
 terraform apply
 ```
+
+Setup local variable definitions in a `*.tfvars` file. e.g.
+```
+project_id = <GCP_PROJECT_ID>
+credentials_file = <PATH_TO_SERVICE_ACCOUNT_CREDENTIALS_FILE>
+terraform_service_account = <GCP_SERVICE_ACCOUNT_EMAIL>
+```
