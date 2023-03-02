@@ -53,7 +53,8 @@ jobs:
             ${process.env.PLAN}
             \`\`\`\n
             
-            </details>
+            </details>;
+            
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
