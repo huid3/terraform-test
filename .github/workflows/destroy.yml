@@ -7,6 +7,7 @@ jobs:
   terraform:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v1
         with:
@@ -14,5 +15,8 @@ jobs:
       - uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: ${{ env.TERRAFORM_VERSION }}
+      - name: Terraform Init
+        id: init
+        run: terraform init
       - name: Terraform Destroy
         run: terraform apply -destroy -auto-approve -input=false
