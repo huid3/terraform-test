@@ -1,0 +1,18 @@
+name: Destroy Infrastructure
+on: workflow_dispatch
+env:
+  TERRAFORM_VERSION: 1.3.9
+  TF_VAR_project_id: ${{ secrets.GCP_PROJECT_ID }}
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_TERRAFORM_SERVICE_ACCOUNT_KEY }}
+      - uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: ${{ env.TERRAFORM_VERSION }}
+      - name: Terraform Destroy
+        run: terraform apply -destroy -auto-approve -input=false
