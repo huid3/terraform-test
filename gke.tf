@@ -21,14 +21,14 @@ module "gke" {
   filestore_csi_driver       = false
   create_service_account     = false
   gce_pd_csi_driver          = false
-  default_max_pods_per_node  = 20
+  default_max_pods_per_node  = 15
 
   node_pools = [
     {
       name               = "default-node-pool-test"
       machine_type       = "e2-medium"
       min_count          = 1
-      max_count          = 3
+      max_count          = 1
       local_ssd_count    = 0
       spot               = false
       initial_node_count = 1
