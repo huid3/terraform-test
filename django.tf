@@ -23,7 +23,7 @@ resource "kubernetes_deployment" "django" {
       }
       spec {
         container {
-          image = "gcr.io/django-test:latest"
+          image = "gcr.io/${var.project_id}/django-test:latest"
           name  = "django-test-1"
         }
       }
