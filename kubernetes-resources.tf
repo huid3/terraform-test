@@ -73,3 +73,43 @@
 #     type = "ClusterIP"
 #   }
 # }
+
+
+resource "kubernetes_service" "nginx" {
+  metadata {
+    name = "nginx-ingress"
+  }
+  spec {
+    port {
+      port        = 80
+      target_port = 80
+      protocol    = "TCP"
+    }
+    type = "NodePort"
+  }
+  depends_on = [module.gke]
+}
+
+resource "kubernetes_ingress" "nginx" {
+  wait_for_load_balancer = true
+  metadata {
+    name = "nginx-ingress"
+    annotations = {
+      "kubernetes.io/ingress.class" = "nginx"
+    }
+  }
+  spec {
+    rule {
+      http {
+        path {
+          path = "/*"
+          backend {
+            service_name = kubernetes_service.nginx.metadata.0.name
+            service_port = 80
+          }
+        }
+      }
+    }
+  }
+  depends_on = [module.gke]
+}
