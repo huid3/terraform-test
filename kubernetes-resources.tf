@@ -88,7 +88,7 @@ resource "kubernetes_service" "nginx" {
       target_port = 80
       protocol    = "TCP"
     }
-    type = "NodePort"
+    type = "LoadBalancer"
   }
   depends_on = [module.gke]
 }
