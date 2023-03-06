@@ -77,7 +77,10 @@ resource "kubernetes_deployment" "nginx-example" {
 
 resource "kubernetes_service" "nginx" {
   metadata {
-    name = "nginx-ingress"
+    name = "nginx-lb-test"
+    annotations = {
+        cloud.google.com/load-balancer-type = "Internal"
+    }
   }
   spec {
     selector = {
@@ -88,7 +91,7 @@ resource "kubernetes_service" "nginx" {
       target_port = 80
       protocol    = "TCP"
     }
-    type = "NodePort"
+    type = "LoadBalancer"
   }
   depends_on = [module.gke]
 }
