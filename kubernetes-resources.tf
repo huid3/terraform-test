@@ -79,7 +79,7 @@ resource "kubernetes_service" "nginx" {
   metadata {
     name = "nginx-lb-test"
     annotations = {
-      cloud.google.com / load-balancer-type = "Internal"
+      "cloud.google.com/load-balancer-type" : "Internal"
     }
   }
   spec {
