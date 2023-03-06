@@ -34,47 +34,6 @@ resource "kubernetes_deployment" "nginx-example" {
   depends_on = [module.gke]
 }
 
-# resource "kubernetes_service" "nginx-example" {
-#   metadata {
-#     name = "nginx-example"
-#   }
-
-#   spec {
-#     type = "LoadBalancer"
-#     selector = {
-#       app = kubernetes_deployment.nginx-example.metadata[0].labels.app
-#     }
-
-#     port {
-#       port        = 80
-#       target_port = 80
-#     }
-#   }
-
-#   depends_on = [module.gke]
-# }
-
-# resource "kubernetes_service" "django" {
-#   metadata {
-#     name = "django"
-#   }
-
-#   spec {
-#     selector = {
-#       app = "django"
-#     }
-
-#     port {
-#       name       = "http"
-#       port       = 80
-#       target_port = 8000
-#     }
-
-#     type = "ClusterIP"
-#   }
-# }
-
-
 resource "kubernetes_service" "nginx" {
   metadata {
     name = "nginx-lb-test"
@@ -84,12 +43,11 @@ resource "kubernetes_service" "nginx" {
   }
   spec {
     selector = {
-      "app" = kubernetes_deployment.nginx-example.metadata[0].labels.app
+      app = kubernetes_deployment.nginx-example.metadata.0.labels.app
     }
     port {
       port        = 80
       target_port = 80
-      protocol    = "TCP"
     }
     type = "LoadBalancer"
   }
