@@ -148,7 +148,7 @@ resource "kubernetes_deployment" "dummy_test" {
   }
 }
 
-resource "kubernetes_ingress" "dummy_ingress" {
+resource "kubernetes_ingress_v1" "dummy_ingress" {
   metadata {
     name      = "example-ingress"
     namespace = "default"
@@ -159,19 +159,27 @@ resource "kubernetes_ingress" "dummy_ingress" {
   }
 
   spec {
-    backend {
-      service_name = "django-test-neg"
-      service_port = 8080
+    default_backend {
+      service {
+        name = "django-test-neg"
+        port {
+          number = 8080
+        }
+      }
     }
 
     rule {
       http {
         path {
           backend {
-            service_name = "django-test-neg"
-            service_port = 8080
+            service {
+              name = "django-test-neg"
+              port {
+                number = 8080
+              }
+            }
           }
-          path = "/ui"
+          path = "/"
         }
       }
     }
