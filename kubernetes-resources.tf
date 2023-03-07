@@ -184,8 +184,8 @@ resource "kubernetes_ingress_v1" "dummy_ingress" {
       }
     }
 
-    tls {
-      secret_name = "tls-secret"
-    }
+    # tls {
+    #   secret_name = "tls-secret"
+    # }
   }
 }
