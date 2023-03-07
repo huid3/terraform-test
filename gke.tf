@@ -8,11 +8,13 @@ module "gke" {
   source  = "terraform-google-modules/kubernetes-engine/google"
   version = "25.0.0"
 
-  project_id                 = var.project_id
-  name                       = "gke-test-1"
-  region                     = var.region
-  network                    = module.gcp-network.network_name
-  subnetwork                 = module.gcp-network.subnets_names[0]
+  project_id = var.project_id
+  name       = "gke-test-1"
+  region     = var.region
+  #   network    = module.gcp-network.network_name
+  #   subnetwork                 = module.gcp-network.subnets_names[0]
+  network                    = google_compute_network.vpc_test_2.name
+  subnetwork                 = google_compute_subnetwork.private_subnet.name
   ip_range_pods              = var.ip_range_pods_name
   ip_range_services          = var.ip_range_services_name
   http_load_balancing        = true
