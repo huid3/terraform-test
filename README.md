@@ -8,6 +8,8 @@
 
 [VPC/subnets](https://github.com/terraform-google-modules/terraform-google-network)
 
+[Internal HTTP(s) Load Balancing setup](https://cloud.google.com/load-balancing/docs/l7-internal/setting-up-l7-internal)
+
 ### Github actions
 
 [Terraform github action reference ](https://github.com/hashicorp/learn-terraform-github-actions/blob/main/.github/workflows/terraform.yml)

@@ -59,6 +59,19 @@ resource "google_compute_subnetwork" "proxy_only_subnet" {
   role          = "ACTIVE"
 }
 
+resource "google_compute_firewall" "fw_allow_proxies" {
+  name          = "vpc-test-2-fw-allow-proxies"
+  network       = google_compute_network.vpc_test_2.name
+  direction     = "ingress"
+  source_ranges = ["11.129.0.0/23"]
+  target_tags   = ["load-balanced-backend"]
+
+  allow {
+    protocol = "tcp"
+    ports    = ["80", "443", "8080", "9090"]
+  }
+}
+
 # resource "google_compute_firewall" "allow-http" {
 #   name    = "vpc-test-2-fw-allow-http"
 #   network = google_compute_network.vpc_test_2.name
