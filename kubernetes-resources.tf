@@ -72,8 +72,8 @@ resource "kubernetes_service" "neg_test" {
   spec {
     port {
       name        = "http"
-      port        = 80
-      target_port = 80
+      port        = 8080
+      target_port = 8080
       protocol    = "TCP"
     }
     selector = {
