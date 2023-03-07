@@ -54,126 +54,130 @@
 #   depends_on = [module.gke]
 # }
 
-resource "kubernetes_service" "neg_test" {
-  metadata {
-    name = "django-test-neg"
-    labels = {
-      app = "django-test"
-    }
-    annotations = {
-      "cloud.google.com/neg" = "{ \"ingress\" : true }"
-    }
-  }
 
-  spec {
-    port {
-      name        = "http"
-      port        = 80
-      target_port = 80
-      protocol    = "TCP"
-    }
-    selector = {
-      app = "django-test"
-    }
-    type = "ClusterIP"
-  }
-}
 
-resource "kubernetes_deployment" "dummy_test" {
-  metadata {
-    name = "django-test"
-    labels = {
-      app = "django-test"
-    }
-  }
+#-----------------
 
-  spec {
-    replicas = 1
-    selector {
-      match_labels = {
-        app = "django-test"
-      }
-    }
-    template {
-      metadata {
-        labels = {
-          app = "django-test"
-        }
-      }
+# resource "kubernetes_service" "neg_test" {
+#   metadata {
+#     name = "django-test-neg"
+#     labels = {
+#       app = "django-test"
+#     }
+#     annotations = {
+#       "cloud.google.com/neg" = "{ \"ingress\" : true }"
+#     }
+#   }
 
-      spec {
-        container {
-          name = "django-test"
-          env {
-            name  = "LISTEN_ADDR"
-            value = "0.0.0.0:8080"
-          }
-          env {
-            name  = "SERVER_TYPE"
-            value = "http"
-          }
-          env {
-            name  = "NAME"
-            value = "web"
-          }
-          env {
-            name  = "MESSAGE"
-            value = "Response from web"
-          }
-          env {
-            name = "KUBERNETES_NAMESPACE"
-            value_from {
-              field_ref {
-                field_path = "metadata.namespace"
-              }
-            }
-          }
-          image             = "nicholasjackson/fake-service:v0.22.9"
-          image_pull_policy = "IfNotPresent"
-          port {
-            container_port = 8080
-            name           = "http"
-            protocol       = "TCP"
-          }
-          security_context {
-            privileged = false
-          }
-        }
-      }
-    }
-  }
-}
+#   spec {
+#     port {
+#       name        = "http"
+#       port        = 80
+#       target_port = 80
+#       protocol    = "TCP"
+#     }
+#     selector = {
+#       app = "django-test"
+#     }
+#     type = "ClusterIP"
+#   }
+# }
 
-resource "kubernetes_ingress" "dummy_ingress" {
-  metadata {
-    name      = "example-ingress"
-    namespace = "default"
-    annotations = {
-      "kubernetes.io/ingress.class"      = "gce"
-      "kubernetes.io/ingress.allow-http" = true
-    }
-  }
+# resource "kubernetes_deployment" "dummy_test" {
+#   metadata {
+#     name = "django-test"
+#     labels = {
+#       app = "django-test"
+#     }
+#   }
 
-  spec {
-    backend {
-      service_name = "django-test-neg"
-      service_port = 8080
-    }
+#   spec {
+#     replicas = 1
+#     selector {
+#       match_labels = {
+#         app = "django-test"
+#       }
+#     }
+#     template {
+#       metadata {
+#         labels = {
+#           app = "django-test"
+#         }
+#       }
 
-    rule {
-      http {
-        path {
-          backend {
-            service_name = "django-test-neg"
-            service_port = 8080
-          }
-          path = "/ui"
-        }
-      }
-    }
+#       spec {
+#         container {
+#           name = "django-test"
+#           env {
+#             name  = "LISTEN_ADDR"
+#             value = "0.0.0.0:8080"
+#           }
+#           env {
+#             name  = "SERVER_TYPE"
+#             value = "http"
+#           }
+#           env {
+#             name  = "NAME"
+#             value = "web"
+#           }
+#           env {
+#             name  = "MESSAGE"
+#             value = "Response from web"
+#           }
+#           env {
+#             name = "KUBERNETES_NAMESPACE"
+#             value_from {
+#               field_ref {
+#                 field_path = "metadata.namespace"
+#               }
+#             }
+#           }
+#           image             = "nicholasjackson/fake-service:v0.22.9"
+#           image_pull_policy = "IfNotPresent"
+#           port {
+#             container_port = 8080
+#             name           = "http"
+#             protocol       = "TCP"
+#           }
+#           security_context {
+#             privileged = false
+#           }
+#         }
+#       }
+#     }
+#   }
+# }
 
-    tls {
-      secret_name = "tls-secret"
-    }
-  }
-}
+# resource "kubernetes_ingress" "dummy_ingress" {
+#   metadata {
+#     name      = "example-ingress"
+#     namespace = "default"
+#     annotations = {
+#       "kubernetes.io/ingress.class"      = "gce"
+#       "kubernetes.io/ingress.allow-http" = true
+#     }
+#   }
+
+#   spec {
+#     backend {
+#       service_name = "django-test-neg"
+#       service_port = 8080
+#     }
+
+#     rule {
+#       http {
+#         path {
+#           backend {
+#             service_name = "django-test-neg"
+#             service_port = 8080
+#           }
+#           path = "/ui"
+#         }
+#       }
+#     }
+
+#     tls {
+#       secret_name = "tls-secret"
+#     }
+#   }
+# }
