@@ -62,7 +62,7 @@ resource "google_compute_subnetwork" "proxy_only_subnet" {
 resource "google_compute_firewall" "fw_allow_proxies" {
   name          = "vpc-test-2-fw-allow-proxies"
   network       = google_compute_network.vpc_test_2.name
-  direction     = "ingress"
+  direction     = "INGRESS"
   source_ranges = ["11.129.0.0/23"]
   target_tags   = ["load-balanced-backend"]
 
