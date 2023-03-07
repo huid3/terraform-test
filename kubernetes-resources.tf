@@ -72,7 +72,7 @@ resource "kubernetes_service" "neg_test" {
   spec {
     port {
       name        = "http"
-      port        = 8080
+      port        = 80
       target_port = 8080
       protocol    = "TCP"
     }
@@ -163,7 +163,7 @@ resource "kubernetes_ingress_v1" "dummy_ingress" {
       service {
         name = "django-test-neg"
         port {
-          number = 8080
+          number = 80
         }
       }
     }
@@ -175,7 +175,7 @@ resource "kubernetes_ingress_v1" "dummy_ingress" {
             service {
               name = "django-test-neg"
               port {
-                number = 8080
+                number = 80
               }
             }
           }
