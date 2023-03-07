@@ -153,7 +153,7 @@ resource "kubernetes_ingress_v1" "dummy_ingress" {
     name      = "example-ingress"
     namespace = "default"
     annotations = {
-      "kubernetes.io/ingress.class"      = "gce"
+      "kubernetes.io/ingress.class"      = "gce-internal"
       "kubernetes.io/ingress.allow-http" = true
     }
   }
