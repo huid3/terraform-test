@@ -144,41 +144,36 @@ resource "kubernetes_deployment" "dummy_test" {
   }
 }
 
-# resource "kubernetes_ingress" "dummy_ingress" {
-#   metadata {
-#     name = "example-ingress"
-#   }
+resource "kubernetes_ingress" "dummy_ingress" {
+  metadata {
+    name      = "example-ingress"
+    namespace = "default"
+    annotations = {
+      "kubernetes.io/ingress.class"      = "gce"
+      "kubernetes.io/ingress.allow-http" = true
+    }
+  }
 
-#   spec {
-#     backend {
-#       service_name = "myapp-1"
-#       service_port = 8080
-#     }
+  spec {
+    backend {
+      service_name = "django-test-neg"
+      service_port = 8080
+    }
 
-#     rule {
-#       http {
-#         path {
-#           backend {
-#             service_name = "myapp-1"
-#             service_port = 8080
-#           }
+    rule {
+      http {
+        path {
+          backend {
+            service_name = "django-test-neg"
+            service_port = 8080
+          }
+          path = "/ui"
+        }
+      }
+    }
 
-#           path = "/app1/*"
-#         }
-
-#         path {
-#           backend {
-#             service_name = "myapp-2"
-#             service_port = 8080
-#           }
-
-#           path = "/app2/*"
-#         }
-#       }
-#     }
-
-#     tls {
-#       secret_name = "tls-secret"
-#     }
-#   }
-# }
+    tls {
+      secret_name = "tls-secret"
+    }
+  }
+}
