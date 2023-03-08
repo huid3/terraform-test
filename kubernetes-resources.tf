@@ -83,70 +83,70 @@ resource "kubernetes_service" "neg_test" {
   }
 }
 
-resource "kubernetes_deployment" "dummy_test" {
-  metadata {
-    name = "django-test"
-    labels = {
-      app = "django-test"
-    }
-  }
+# resource "kubernetes_deployment" "dummy_test" {
+#   metadata {
+#     name = "django-test"
+#     labels = {
+#       app = "django-test"
+#     }
+#   }
 
-  spec {
-    replicas = 1
-    selector {
-      match_labels = {
-        app = "django-test"
-      }
-    }
-    template {
-      metadata {
-        labels = {
-          app = "django-test"
-        }
-      }
+#   spec {
+#     replicas = 1
+#     selector {
+#       match_labels = {
+#         app = "django-test"
+#       }
+#     }
+#     template {
+#       metadata {
+#         labels = {
+#           app = "django-test"
+#         }
+#       }
 
-      spec {
-        container {
-          name = "django-test"
-          env {
-            name  = "LISTEN_ADDR"
-            value = "0.0.0.0:8080"
-          }
-          env {
-            name  = "SERVER_TYPE"
-            value = "http"
-          }
-          env {
-            name  = "NAME"
-            value = "web"
-          }
-          env {
-            name  = "MESSAGE"
-            value = "Response from web"
-          }
-          env {
-            name = "KUBERNETES_NAMESPACE"
-            value_from {
-              field_ref {
-                field_path = "metadata.namespace"
-              }
-            }
-          }
-          image             = "nicholasjackson/fake-service:v0.22.9"
-          image_pull_policy = "IfNotPresent"
-          port {
-            container_port = 8080
-            name           = "http"
-            protocol       = "TCP"
-          }
-          security_context {
-            privileged = false
-          }
-        }
-      }
-    }
-  }
-}
+#       spec {
+#         container {
+#           name = "django-test"
+#           env {
+#             name  = "LISTEN_ADDR"
+#             value = "0.0.0.0:8080"
+#           }
+#           env {
+#             name  = "SERVER_TYPE"
+#             value = "http"
+#           }
+#           env {
+#             name  = "NAME"
+#             value = "web"
+#           }
+#           env {
+#             name  = "MESSAGE"
+#             value = "Response from web"
+#           }
+#           env {
+#             name = "KUBERNETES_NAMESPACE"
+#             value_from {
+#               field_ref {
+#                 field_path = "metadata.namespace"
+#               }
+#             }
+#           }
+#           image             = "nicholasjackson/fake-service:v0.22.9"
+#           image_pull_policy = "IfNotPresent"
+#           port {
+#             container_port = 8080
+#             name           = "http"
+#             protocol       = "TCP"
+#           }
+#           security_context {
+#             privileged = false
+#           }
+#         }
+#       }
+#     }
+#   }
+# }
 
 resource "kubernetes_ingress_v1" "dummy_ingress" {
   metadata {
