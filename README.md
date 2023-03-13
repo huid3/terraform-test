@@ -44,3 +44,4 @@ If running into issues with the comment attached on PR - There's a limit to the 
 
 ## Next Steps
 - use terragrunt to help keep files DRY when provisioning different environments (DEV, QA, PROD)
+- TODO Figure out networking to match current GKE setup and how to expose services to be accessable
